@@ -21,7 +21,7 @@ typedef struct {
 }stock;         // 栈数据结构
 
 typedef struct {
-	box_1 Qu[1600];
+	box_1 *Qu;
 	int rear;
 	int prior;
 }queue;

@@ -1001,6 +1001,7 @@ void Maze_BFS_Solve(int MAP[][NUM_MAP], bool play, bool CreateMaze)
 		Maze_MakeMaze_Random_1(MAP, false);          // 随机生成一个迷宫
 	Maze_Print_Map(MAP);
 	queue A;
+	A.Qu = new box_1[N_B*N_B];
 	A.prior = -1; A.rear = -1;                      // 定义并且初始化一个队列
 	box_1 temp, start, end;                            // 定义起点与终点和第三变量
 	Maze_Solve_GetStartEnd(start, end, MAP);           // 随机获得一个起点与一个终点
@@ -1067,15 +1068,6 @@ void Maze_BFS_Solve(int MAP[][NUM_MAP], bool play, bool CreateMaze)
 			break;
 	}
 	Sleep(2000);
-//	for (int i = A.rear; i >= 0; i--) {
-//		if (play) {
-//			Maze_MakeMaze_Random_PrintClean(A.Qu[i].x, A.Qu[i].y);
-//			Maze_Print_Start_End(start.x, start.y, end.x, end.y);
-//			if (T < 1000)
-//				Sleep(T);
-//		}
-//		MAP[A.Qu[i].x][A.Qu[i].y] = 0;
-//	}
 	int p = A.rear;
 	if (play) {
 		for (; p > -1;) {
@@ -1094,19 +1086,7 @@ void Maze_BFS_Solve(int MAP[][NUM_MAP], bool play, bool CreateMaze)
 				}
 		MAP[A.Qu[i].x][A.Qu[i].y] = 0;
 	}
-
-	/*
-	if (play) {
-		for (; p > 0 ;) {
-			Maze_MakeMaze_Random_PrintWay(A.Qu[p].x,A.Qu[p].y);
-			if (T < 1000)
-				Sleep(T);
-			p = A.Qu[p].dir;
-		}
-	}
-	if(play)
-		Maze_MakeMaze_Random_PrintWay(A.Qu[0].x, A.Qu[0].y);
-	*/
+	delete[] A.Qu;
 }
 // 迷宫求解时的起始坐标获取
 void Maze_Solve_GetStartEnd(box_1 &start, box_1 &end,int MAP[][NUM_MAP])
